@@ -14,6 +14,7 @@
 	        <input id="input-password-retype" type="password" name="password_confirmation" placeholder="Retype Password" required>
 	        <input id="signup-submit" type="submit" placeholder="Sign up">
 	        </form>
+	        <a href="{{ url('/login') }}"> Already a member? Sign in here.</a>
 	  </div>
 	</div>
 </section>
