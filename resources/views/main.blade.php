@@ -12,6 +12,7 @@
     @yield('content')
 
     @include('partials/_footer')
+    4
           
     </div> <!-- end of wrapper -->
   </body>
