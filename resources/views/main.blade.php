@@ -7,12 +7,11 @@
   </head>
   <body>
 
-    @include('partials/_welcomeheader')
+    @include('partials/_header')
   
     @yield('content')
 
     @include('partials/_footer')
-    4
           
     </div> <!-- end of wrapper -->
   </body>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contribution;
 
-class ContributionController
+class ContributionController extends Controller
 {
     /**
      * Display a listing of the resource.

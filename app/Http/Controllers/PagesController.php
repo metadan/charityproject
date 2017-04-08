@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-class PagesController {
+class PagesController extends Controller
+{
 
 	public function getIndex(){
 		#process data and params
@@ -25,15 +26,15 @@ class PagesController {
 		return view('pages/privacy');
 	}
 
-	public function getLogin(){
-		return view('pages/login');
-	}
+	//public function getLogin(){
+		//return view('pages/login');
+	//}
 
-	public function getSignup(){
-		return view('pages/signup');
-	}
+	//public function getSignup(){
+		//return view('pages/signup');
+	//}
 
-	public function getLoginsignup(){
-		return view('pages/loginsignup');
-	}
+	//public function getLoginsignup(){
+		//return view('pages/loginsignup');
+	//}
 }

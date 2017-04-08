@@ -22,12 +22,9 @@ Route::resource('inquiries', 'InquiryController');
 Route::resource('contributions', 'ContributionController');
 
 //Authentication Routes
-//Route::get('auth/login', 'Auth\LoginController@getLogin');
-//Route::post('auth/login', 'Auth\LoginController@postLogin');
-//Route::get('auth/logout', 'Auth\LoginController@getLogout');
 
-//Registration Routes
-//Route::get('auth/signup', 'Auth\RegisterController@getSignup');
-//Route::post('auth/signup', 'Auth\RegisterController@postSignup')
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
 
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Inquiry;
 
-class InquiryController
+class InquiryController extends Controller
 {
     /**
      * Display a listing of the resource.
