@@ -4,10 +4,10 @@
 
 <section>
   <div class="find-contribution">
-    <a href="{{ url('/register') }}"><img src="images/find1.png" alt="Find icon">Find a contribution or inquiry </a>
+    <a href="{{ url('/inquiries/create') }}"><img src="images/find1.png" alt="Find icon">Find a contribution or inquiry </a>
     </div>
   <div class="create-contribution">
-    <a href="{{ url('/register') }}"><img src="images/create1.png" alt="Create icon">Create a contribution or inquiry</a>
+    <a href="{{ url('/contributions/create') }}"><img src="images/create1.png" alt="Create icon">Create a contribution or inquiry</a>
   </div> 
     <div class="wrapper">
       <div class="search">

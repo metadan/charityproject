@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contribution;
+use Illuminate\Support\Facades\Auth;
 
 class ContributionController extends Controller
 {
@@ -28,7 +29,11 @@ class ContributionController extends Controller
      */
     public function create()
     {
-        return view('contributions.create');
+       if (Auth::guest()) {
+            return redirect()->guest('register');
+        }
+
+        return view('contributions.create'); 
     }
 
     /**
@@ -60,6 +65,7 @@ class ContributionController extends Controller
             $contribution->endtime = $request->endtime;
             $contribution->skillsoffered = $request->skillsoffered;
             $contribution->numberofpersonsoffered = $request->numberofpersonsoffered;
+            $contribution->creator_id = Auth::user()->id;
 
             $contribution->save();
 

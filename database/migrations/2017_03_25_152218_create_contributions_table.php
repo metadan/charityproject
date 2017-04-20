@@ -13,8 +13,10 @@ class CreateContributionsTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints();
         Schema::create('contributions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('creator_id')->unsigned();
             $table->string('title');
             $table->string('description');
             $table->date('date');
@@ -23,6 +25,10 @@ class CreateContributionsTable extends Migration
             $table->string('skillsoffered');
             $table->integer('numberofpersonsoffered');
             $table->timestamps();
+        });
+
+        Schema::table('contributions', function($table){
+            $table->foreign('creator_id')->references('id')->on('users');
         });
     }
 

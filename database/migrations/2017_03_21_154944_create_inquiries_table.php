@@ -13,8 +13,10 @@ class CreateInquiriesTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints();
         Schema::create('inquiries', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('creator_id')->unsigned();
             $table->string('title');
             $table->string('description');
             $table->date('date');
@@ -23,6 +25,10 @@ class CreateInquiriesTable extends Migration
             $table->string('skillsneeded');
             $table->integer('numberofpersonsneeded');
             $table->timestamps();
+        });
+
+        Schema::table('inquiries', function($table){
+            $table->foreign('creator_id')->references('id')->on('users');
         });
     }
 

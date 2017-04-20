@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inquiry;
+use Illuminate\Support\Facades\Auth;
 
 class InquiryController extends Controller
 {
@@ -28,8 +29,12 @@ class InquiryController extends Controller
      */
     public function create()
     {
+        if (Auth::guest()) {
+            return redirect()->guest('register');
+        }
+
         return view('inquiries.create');
-    }
+    }   
 
     /**
      * Store a newly created resource in storage.
@@ -60,6 +65,7 @@ class InquiryController extends Controller
             $inquiry->endtime = $request->endtime;
             $inquiry->skillsneeded = $request->skillsneeded;
             $inquiry->numberofpersonsneeded = $request->numberofpersonsneeded;
+            $inquiry->creator_id = Auth::user()->id;
 
             $inquiry->save();
 

@@ -57,11 +57,6 @@ HEADER
 	text-align: left;
 }
 
-.login-header{
-	font-size: 1.3em;
-	font-style: normal;
-	font-family: 'Bree Serif', serif;
-}
 
 #top-border {
 	border-top: 2px solid #FF5733;
@@ -72,12 +67,11 @@ HEADER
 }
 
 .login-header {
-	text-align: right;
-	padding-right: 20px;
-	display: inline;
-   	position: absolute;
-   	top:0;
-   	right:0;
+	font-size: 1.3em;
+	font-style: normal;
+	font-family: 'Bree Serif', serif;
+	text-align:right;
+	padding-right: 30px !important;
 }
 
 .material-icons.md-36 {
@@ -177,6 +171,7 @@ HEADER
 	background-color: #FF5733;
 }
 
+
 /**********************************
 SECTION 
 ***********************************/
@@ -193,8 +188,8 @@ SECTION
 #search-box,
 #search-box-logged {
 	background-color: #474747;
-	width: 550px;
-	height: 50px;
+	width: 500px;
+	height: 80px;
 	padding: 20px;
 	margin: 100px auto 50px;
 	overflow: hidden;
@@ -206,8 +201,7 @@ SECTION
 } 
 
 #search-bar {
-	padding: 8px 12px;
-	height: 30px;
+	height: 40px;
 	width: 400px;
 	border: 0;
 	background-color: white;

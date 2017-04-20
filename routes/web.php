@@ -25,6 +25,8 @@ Route::resource('contributions', 'ContributionController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'HomeController@getIndex');
+Route::get('/account', 'HomeController@getAccount');
+Route::get('/settings', 'HomeController@getSettings');
 
 
