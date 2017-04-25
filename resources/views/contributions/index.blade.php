@@ -30,8 +30,8 @@
 					<td class="col-xs-1">{{ date('m j, Y') }}</td>
 					<td class="col-xs-1">{{ strtotime($contribution->starttime) }}</td>
 					<td class="col-xs-1">{{ strtotime($contribution->endtime) }}</td>
-					<td class="col-xs-3">{{ $contribution->skillsoffered }}</td>
-					<td class="col-xs-3">{{ $contribution->location}}</td>
+					<td class="col-xs-3">{{ $contribution->skill->skill }}</td>
+					<td class="col-xs-3">{{ $contribution->location->location }}</td>
 					<td class="col-xs-1">{{ $contribution->numberofpersonsoffered }}</td>
 					<td><a href="{{ route('contributions.show', $contribution->id) }}">View</a></td>
 					@can('update', $contribution)

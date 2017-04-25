@@ -31,7 +31,7 @@
 					<td class="col-xs-1">{{ strtotime($inquiry->starttime) }}</td>
 					<td class="col-xs-1">{{ strtotime($inquiry->endtime) }}</td>
 					<td class="col-xs-2">{{ $inquiry->skill->skill }}</td>
-					<td class="col-xs-2">{{ $inquiry->location }}</td>
+					<td class="col-xs-2">{{ $inquiry->location->location }}</td>
 					<td class="col-xs-1">{{ $inquiry->numberofpersonsneeded }}</td>
 					<td><a href="{{ route('inquiries.show', $inquiry->id) }}">View</a></td>
 					@can('update', $inquiry)

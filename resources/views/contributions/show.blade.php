@@ -18,7 +18,7 @@
 				<p>Date: {{ $contribution->date}}</p>
 				<p>Start time: {{ $contribution->starttime }} </p>
 				<p>End time: {{ $contribution->endtime }} </p>
-				<p>Location: {{ $contribution->location }}</p>
+				<p>Location: {{ $contribution->location_id }}</p>
 				<p>Skills offered: {{ $contribution->skillsoffered }}</p>
 				<p>Number of persons offered: {{ $contribution->numberofpersonsoffered }} </p>
 			</div>

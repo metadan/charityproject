@@ -20,8 +20,8 @@ class InquiryController extends Controller
     public function index()
     {
         //create a variable and store all inquiries in the database that are not cancelled
-        $inquiries = Inquiry::with('skill') 
-                    -> where('cancelled', 0)
+        $inquiries = Inquiry::with('skill','location') 
+                    ->where('cancelled', 0)
                     ->get();
 
         Log::info('Result from inquiries: '.$inquiries);
@@ -64,6 +64,7 @@ class InquiryController extends Controller
                     'starttime' => 'required',
                     'endtime' => 'required',
                     'skillsneeded' => 'required',
+                    'location' => 'required',
                     'numberofpersonsneeded' => 'required'
                     ));
 
@@ -75,7 +76,7 @@ class InquiryController extends Controller
             $inquiry->date = $request->date;
             $inquiry->starttime = $request->starttime;
             $inquiry->endtime = $request->endtime;
-            $inquiry->location = $request->location;
+            $inquiry->location_id = $request->location;
             $inquiry->skillsneeded = $request ->skillsneeded;
             $inquiry->numberofpersonsneeded = $request->numberofpersonsneeded;
             $inquiry->creator_id = Auth::user()->id;
@@ -141,6 +142,7 @@ class InquiryController extends Controller
                     'starttime' => 'required',
                     'endtime' => 'required',
                     'skillsneeded' => 'required',
+                    'location' => 'required',
                     'numberofpersonsneeded' => 'required'
                     ));
 
@@ -151,7 +153,7 @@ class InquiryController extends Controller
         $inquiry->date = $request->date;
         $inquiry->starttime = $request->starttime;
         $inquiry->endtime = $request->endtime;
-        $inquiry->location = $request->location;
+        $inquiry->location_id = $request->location;
         $inquiry->skillsneeded = $request ->skillsneeded;
         $inquiry->numberofpersonsneeded = $request->numberofpersonsneeded;
         $inquiry->creator_id = Auth::user()->id;

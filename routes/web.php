@@ -33,7 +33,7 @@ Route::get('home/inquiries', 'HomeController@getInquiries')->name('home.inquirie
 Route::get('home/contributions', 'HomeController@getContributions')->name('home.contributions');
 Route::get('home/account', 'HomeController@getAccount');
 Route::get('home/settings', 'HomeController@getSettings');
-Route::get('profile', 'HomeController@getProfile');
+Route::get('myprofile', 'HomeController@getProfile')->name('myprofile');
 
 //Search Routes
 

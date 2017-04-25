@@ -28,7 +28,7 @@
                         <td class="col-xs-3">{{ $contribution->title }}</td>
                         <td class="col-xs-2">{{ date('m j, Y') }}</td>
                         <td class="col-xs-3">{{ $contribution->skillsoffered }}</td>
-                        <td class="col-xs-2">{{ $contribution->location }}</td>
+                        <td class="col-xs-2">{{ $contribution->location_id }}</td>
                         <td class="col-xs-1">{{ $contribution->numberofpersonsoffered }}</td>
                         <td><a href="{{ route('contributions.show', $contribution->id) }}">View</a></td>
                     </tr>
@@ -53,7 +53,7 @@
                         <td class="col-xs-3">{{ $inquiry->title }}</td>
                         <td class="col-xs-2">{{ date('m j, Y') }}</td>
                         <td class="col-xs-3">{{ $inquiry->skillsneeded }}</td>
-                        <td class="col-xs-2">{{ $inquiry->location }}</td>
+                        <td class="col-xs-2">{{ $inquiry->location_id }}</td>
                         <td class="col-xs-1">{{ $inquiry->numberofpersonsneeded }}</td>
                         <td><a href="{{ route('inquiries.show', $inquiry->id) }}">View</a></td>
                     </tr>

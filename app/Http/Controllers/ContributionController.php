@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Skill;
 use App\Location;
 use Session;
+use Illuminate\Support\Facades\Log;
 
 class ContributionController extends Controller
 {
@@ -19,8 +20,16 @@ class ContributionController extends Controller
     public function index()
     {
         //create a variable and store all the contributions in it from the database
-        $contributions = Contribution::where('cancelled', 0)
+        $contributions = Contribution::with('skill', 'location')
+                        ->where('cancelled', 0)
                         ->get();
+
+        // foreach ($contributions as $contribution) {
+        //     $contribution->location_included = $contribution->location;
+        //     unset($contribution->location);
+        // }
+
+        Log::info('Result from contributions: '.$contributions);
 
         //return a view and pass in the above variable
         return view('contributions.index')->with('contributions', $contributions);
@@ -59,6 +68,7 @@ class ContributionController extends Controller
                 'starttime' => 'required',
                 'endtime' => 'required',
                 'skillsoffered' => 'required',
+                'location' => 'required',
                 'numberofpersonsoffered' => 'required'
                 ));
 
@@ -70,7 +80,7 @@ class ContributionController extends Controller
             $contribution->date = $request->date;
             $contribution->starttime = $request->starttime;
             $contribution->endtime = $request->endtime;
-            $contribution->location = $request->location;
+            $contribution->location_id = $request->location;
             $contribution->skillsoffered = $request->skillsoffered;
             $contribution->numberofpersonsoffered = $request->numberofpersonsoffered;
             $contribution->creator_id = Auth::user()->id;
@@ -135,6 +145,7 @@ class ContributionController extends Controller
                 'starttime' => 'required',
                 'endtime' => 'required',
                 'skillsoffered' => 'required',
+                'location' =>'required',
                 'numberofpersonsoffered' => 'required'
                 ));
 
@@ -146,7 +157,7 @@ class ContributionController extends Controller
         $contribution->starttime = $request->starttime;
         $contribution->endtime = $request->endtime;
         $contribution->skillsoffered = $request->skillsoffered;
-        $contribution->location = $request->location;
+        $contribution->location_id = $request->location;
         $contribution->numberofpersonsoffered = $request->numberofpersonsoffered;
         $contribution->creator_id = Auth::user()->id;
 

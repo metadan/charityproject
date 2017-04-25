@@ -22,7 +22,7 @@ class CreateContributionsTable extends Migration
             $table->date('date');
             $table->time('starttime');
             $table->time('endtime');
-            $table->integer('location')->unsigned();
+            $table->integer('location_id')->unsigned();
             $table->integer('skillsoffered')->unsigned();
             $table->integer('numberofpersonsoffered');
             $table->boolean('cancelled')->default(0);
@@ -32,7 +32,7 @@ class CreateContributionsTable extends Migration
         Schema::table('contributions', function($table){
             $table->foreign('creator_id')->references('id')->on('users');
             $table->foreign('skillsoffered')->references('id')->on('skills');
-            $table->foreign('location')->references('id')->on('locations');
+            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 

@@ -58,7 +58,7 @@ class ProfileController extends Controller
             $profile->username = $request->username;
             $profile->description = $request->description;
             $profile->skills = $request->skills;
-            $profile->location = $request->location;
+            $profile->location_id = $request->location;
             $profile->user_id= Auth::user()->id;
 
             $profile->save();
@@ -126,7 +126,7 @@ class ProfileController extends Controller
             $profile->username = $request->username;
             $profile->description = $request->description;
             $profile->skillsoffered = $request->skillsoffered;
-            $profile->location = $request->location;
+            $profile->location_id = $request->location;
             $profile->user_id= Auth::user()->id;
 
             $profile->save();
@@ -134,7 +134,7 @@ class ProfileController extends Controller
         //flash message
 
         //redirect to another page
-            return redirect()->route('profile.show', ['id'=>$profile->id]);
+        return redirect()->route('profile.show', ['id'=>$profile->id]);
     }
 
     /**

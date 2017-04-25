@@ -20,7 +20,7 @@ class CreateProfilesTable extends Migration
             $table->string('description');
             $table->integer('user_id')->unsigned();
             $table->integer('skills')->unsigned();
-            $table->integer('location')->unsigned();
+            $table->integer('location_id')->unsigned();
             $table->boolean('visibletoothers')->default(1);
             $table->boolean('cancelled')->default(0);
             $table->timestamps();
@@ -29,7 +29,7 @@ class CreateProfilesTable extends Migration
         Schema::table('profiles', function($table){
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('skills')->references('id')->on('skills');
-            $table->foreign('location')->references('id')->on('locations');
+            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 

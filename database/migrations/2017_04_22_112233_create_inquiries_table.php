@@ -22,7 +22,7 @@ class CreateInquiriesTable extends Migration
             $table->date('date');
             $table->time('starttime');
             $table->time('endtime');
-            $table->integer('location')->unsigned();
+            $table->integer('location_id')->unsigned();
             $table->integer('skillsneeded')->unsigned();
             $table->integer('numberofpersonsneeded');
             $table->boolean('cancelled')->default(0);
@@ -32,7 +32,7 @@ class CreateInquiriesTable extends Migration
         Schema::table('inquiries', function($table){
             $table->foreign('creator_id')->references('id')->on('users');
             $table->foreign('skillsneeded')->references('id')->on('skills');
-            $table->foreign('location')->references('id')->on('locations');
+            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 

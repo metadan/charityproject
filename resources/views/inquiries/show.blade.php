@@ -18,7 +18,7 @@
 				<p>Date: {{ $inquiry->date}}</p>
 				<p>Start time: {{ $inquiry->starttime }} </p>
 				<p>End time: {{ $inquiry->endtime }} </p>
-				<p>Location: {{ $inquiry->location }}</p>
+				<p>Location: {{ $inquiry->location_id }}</p>
 				<p>Skills needed: {{ $inquiry->skillsneeded }}</p>
 				<p>Number of persons needed: {{ $inquiry->numberofpersonsneeded }} </p>
 			</div>

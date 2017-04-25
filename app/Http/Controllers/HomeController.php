@@ -33,6 +33,10 @@ class HomeController extends Controller
         $createdinquiries = Inquiry::where('creator_id', Auth::user()->id)
                           ->count();
 
+        //$profile = Profile::find($id);
+        //$userid = $profile->user_id;
+        //$createdinquiries = Inquiry::where('creator_id', $userid)->count();
+
         $acceptedinquiries = AcceptInquiry::where('user_id', Auth::user()->id)
                             ->count();
 
@@ -115,12 +119,15 @@ class HomeController extends Controller
 
     public function getProfile()
     {
-        $profile = Profile::find('user_id', Auth::user()->id)
+        $profile = Profile::where('user_id', Auth::user()->id)
                    ->get();
 
         Log::info('Result from profile: '.$profile);
-
-        return redirect()->action('ProfileController@show', ['id'=>$profile_id]);
+        if(count($profile)>0){
+            return redirect()->action('ProfileController@show', ['id'=>$profile[0]->id]);
+        }else{
+            return redirect()->action('ProfileController@create');
+        }
     }
 
 }
