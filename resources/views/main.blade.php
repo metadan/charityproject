@@ -8,6 +8,8 @@
   <body>
 
     @include('partials/_header')
+
+    @include('partials._messages')
   
     @yield('content')
 

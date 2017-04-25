@@ -20,13 +20,24 @@ Route::get('privacy', 'PagesController@getPrivacy');
 //Resource Routes
 Route::resource('inquiries', 'InquiryController');
 Route::resource('contributions', 'ContributionController');
+Route::resource('acceptinquiries', 'AcceptInquiryController');
+Route::resource('acceptcontributions', 'AcceptContributionController');
+Route::resource('profile', 'ProfileController');
 
 //Authentication Routes
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@getIndex');
-Route::get('/account', 'HomeController@getAccount');
-Route::get('/settings', 'HomeController@getSettings');
+Route::get('home', 'HomeController@getIndex')->name('home');
+Route::get('home/inquiries', 'HomeController@getInquiries')->name('home.inquiries');
+Route::get('home/contributions', 'HomeController@getContributions')->name('home.contributions');
+Route::get('home/account', 'HomeController@getAccount');
+Route::get('home/settings', 'HomeController@getSettings');
+Route::get('profile', 'HomeController@getProfile');
+
+//Search Routes
+
+Route::get('search', 'SearchController@search')->name('search');
+Route::post('search', 'SearchController@search')->name('search');
 
 

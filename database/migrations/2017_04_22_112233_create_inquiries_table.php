@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContributionsTable extends Migration
+class CreateInquiriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateContributionsTable extends Migration
     public function up()
     {
         Schema::enableForeignKeyConstraints();
-        Schema::create('contributions', function (Blueprint $table) {
+        Schema::create('inquiries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('creator_id')->unsigned();
             $table->string('title');
@@ -22,13 +22,17 @@ class CreateContributionsTable extends Migration
             $table->date('date');
             $table->time('starttime');
             $table->time('endtime');
-            $table->string('skillsoffered');
-            $table->integer('numberofpersonsoffered');
+            $table->integer('location')->unsigned();
+            $table->integer('skillsneeded')->unsigned();
+            $table->integer('numberofpersonsneeded');
+            $table->boolean('cancelled')->default(0);
             $table->timestamps();
         });
 
-        Schema::table('contributions', function($table){
+        Schema::table('inquiries', function($table){
             $table->foreign('creator_id')->references('id')->on('users');
+            $table->foreign('skillsneeded')->references('id')->on('skills');
+            $table->foreign('location')->references('id')->on('locations');
         });
     }
 
@@ -39,6 +43,6 @@ class CreateContributionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contributions');
+        Schema::dropIfExists('inquiries');
     }
 }

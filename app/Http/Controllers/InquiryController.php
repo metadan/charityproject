@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Inquiry;
 use Illuminate\Support\Facades\Auth;
+use App\Skill;
+use App\Location;
+use Session;
+use Illuminate\Support\Facades\Log;
 
 class InquiryController extends Controller
 {
@@ -15,11 +19,16 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        //create a variable and store all inquiries made that are in the database in that variable
-        $inquiries = Inquiry::all();
+        //create a variable and store all inquiries in the database that are not cancelled
+        $inquiries = Inquiry::with('skill') 
+                    -> where('cancelled', 0)
+                    ->get();
+
+        Log::info('Result from inquiries: '.$inquiries);
+
 
         //return a view and pass in the above variable
-        return view('inquiries.index')->withInquiries($inquiries);
+        return view('inquiries.index')->with('inquiries', $inquiries);
     }
 
     /**
@@ -33,7 +42,10 @@ class InquiryController extends Controller
             return redirect()->guest('register');
         }
 
-        return view('inquiries.create');
+        $skillsneeded = Skill::all();
+        $locations = Location::all();
+
+        return view('inquiries.create')->with('skillsneeded',$skillsneeded)->with('locations', $locations);
     }   
 
     /**
@@ -63,11 +75,15 @@ class InquiryController extends Controller
             $inquiry->date = $request->date;
             $inquiry->starttime = $request->starttime;
             $inquiry->endtime = $request->endtime;
-            $inquiry->skillsneeded = $request->skillsneeded;
+            $inquiry->location = $request->location;
+            $inquiry->skillsneeded = $request ->skillsneeded;
             $inquiry->numberofpersonsneeded = $request->numberofpersonsneeded;
             $inquiry->creator_id = Auth::user()->id;
 
             $inquiry->save();
+
+        //flash message
+            Session::flash('success', 'Inquiry was successfully saved!');
 
         //redirect to another page
             return redirect()->route('inquiries.show', ['id'=>$inquiry->id]);
@@ -81,8 +97,12 @@ class InquiryController extends Controller
      */
     public function show($id)
     {
+        if (Auth::guest()) {
+            return redirect()->guest('register');
+        }
+        
         $inquiry = Inquiry::find($id);
-        return view('inquiries.show')->withInquiry($inquiry);
+        return view('inquiries.show')->with('inquiry', $inquiry);
     }
 
     /**
@@ -93,7 +113,15 @@ class InquiryController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::guest()) {
+            return redirect()->guest('register');
+        }
+
+        $inquiry = Inquiry::find($id);
+        $skillsavailable = Skill::all();
+        $locationsavailable = Location::all();
+
+        return view('inquiries.edit')->with('inquiry', $inquiry)->with('skillsavailable', $skillsavailable)->with('locationsavailable', $locationsavailable);
     }
 
     /**
@@ -105,7 +133,36 @@ class InquiryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $this->validate($request, array(
+                    'title' => 'required|max:150',
+                    'description' => 'required|max:255',
+                    'date' => 'required',
+                    'starttime' => 'required',
+                    'endtime' => 'required',
+                    'skillsneeded' => 'required',
+                    'numberofpersonsneeded' => 'required'
+                    ));
+
+        $inquiry = Inquiry::find($id);
+
+        $inquiry->title = $request->title;
+        $inquiry->description = $request->description;
+        $inquiry->date = $request->date;
+        $inquiry->starttime = $request->starttime;
+        $inquiry->endtime = $request->endtime;
+        $inquiry->location = $request->location;
+        $inquiry->skillsneeded = $request ->skillsneeded;
+        $inquiry->numberofpersonsneeded = $request->numberofpersonsneeded;
+        $inquiry->creator_id = Auth::user()->id;
+
+        $inquiry->save();
+
+        //flash message
+        //Session::flash('success', 'Inquiry was successfully updated!');
+
+        return redirect()->route('inquiries.show', ['id'=>$inquiry->id]);
+
     }
 
     /**
@@ -116,6 +173,12 @@ class InquiryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $inquiry = Inquiry::find($id);
+
+        $inquiry->cancelled = 1;
+
+        $inquiry->save();
+        
+        return redirect()->route('inquiries.index');
     }
 }

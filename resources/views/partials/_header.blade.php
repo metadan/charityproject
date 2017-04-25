@@ -2,11 +2,11 @@
 	<div class="main-header">
         <!---<div class="container">-->
          <div class="row">
-            <div class="col-md-5">
-        	  <h1> <a href="{{ url('/') }}"><img src="/images/asandwhenlogo.png" alt="Logo"></a> As and When </h1>
+            <div class="col-md-5 logo-header">
+        	       <h1> <a href="{{ url('/') }}"><img src="/images/asandwhenlogo.png" alt="Logo"></a> As and When </h1>
         	  <h2> </a> Contribute to community in your convenient time!</h2>
           </div>
-    	   <div class="login-header col-md-3 col-md-offset-4">
+    	   <div class="login-header col-md-3 col-md-offset-3">
     	   @if (Auth::guest())
        			<a href="{{ url('/login') }}">Login | </a>
                 <a href="{{ url('/register') }}">Sign up</a>
@@ -17,9 +17,11 @@
                    	    {{ Auth::user()->name }}<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('home') }}">Contributions/Inquiries</a></li>
-                        <li><a href="{{ url('account') }}">Account</a></li>
-                        <li><a href="{{ url('settings') }}">Settings</a></li>
+                        <li><a href="{{ url('home') }}">Home</a></li>
+                        <li><a href="{{ url( Html::linkAction('HomeController@getProfile')) }}">Profile</a></li>
+                        <li><a href="{{ url('home/contributions') }}">My Contributions</a></li>
+                        <li><a href="{{ url('home/inquiries') }}">My Inquiries</a></li>
+                        <li><a href="{{ url('home/settings') }}">Settings</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ route('logout') }}"
         					onclick="event.preventDefault();

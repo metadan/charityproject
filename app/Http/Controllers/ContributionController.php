@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contribution;
 use Illuminate\Support\Facades\Auth;
+use App\Skill;
+use App\Location;
+use Session;
 
 class ContributionController extends Controller
 {
@@ -16,10 +19,11 @@ class ContributionController extends Controller
     public function index()
     {
         //create a variable and store all the contributions in it from the database
-        $contributions = Contribution::all();
+        $contributions = Contribution::where('cancelled', 0)
+                        ->get();
 
         //return a view and pass in the above variable
-        return view('contributions.index')->withContributions($contributions);
+        return view('contributions.index')->with('contributions', $contributions);
     }
 
     /**
@@ -33,7 +37,10 @@ class ContributionController extends Controller
             return redirect()->guest('register');
         }
 
-        return view('contributions.create'); 
+        $skillsoffered = Skill::all();
+        $locations = Location::all();
+
+        return view('contributions.create')->with('skillsoffered', $skillsoffered)->with('locations', $locations); 
     }
 
     /**
@@ -63,11 +70,15 @@ class ContributionController extends Controller
             $contribution->date = $request->date;
             $contribution->starttime = $request->starttime;
             $contribution->endtime = $request->endtime;
+            $contribution->location = $request->location;
             $contribution->skillsoffered = $request->skillsoffered;
             $contribution->numberofpersonsoffered = $request->numberofpersonsoffered;
             $contribution->creator_id = Auth::user()->id;
 
             $contribution->save();
+
+        //flash message
+        Session::flash('success', 'Contribution was successfully saved!');
 
         //redirect to another page
             return redirect()->route('contributions.show', ['id'=>$contribution->id]);
@@ -81,8 +92,12 @@ class ContributionController extends Controller
      */
     public function show($id)
     {
+        if (Auth::guest()) {
+            return redirect()->guest('register');
+        }
+        
         $contribution = Contribution::find($id);
-        return view('contributions.show')->withContribution($contribution);
+        return view('contributions.show')->with('contribution', $contribution);
     }
 
     /**
@@ -93,7 +108,15 @@ class ContributionController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::guest()) {
+            return redirect()->guest('register');
+        }
+
+        $contribution = Contribution::find($id);
+        $skillsavailable = Skill::all();
+        $locationsavailable = Location::all();
+
+        return view('contributions.edit')->with('contribution', $contribution)->with('skillsavailable', $skillsavailable)->with('locationsavailable', $locationsavailable);
     }
 
     /**
@@ -105,7 +128,34 @@ class ContributionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, array(
+                'title' => 'required|max:150',
+                'description' => 'required|max:255',
+                'date' => 'required',
+                'starttime' => 'required',
+                'endtime' => 'required',
+                'skillsoffered' => 'required',
+                'numberofpersonsoffered' => 'required'
+                ));
+
+        $contribution = Contribution::find($id);
+
+        $contribution->title = $request->title;
+        $contribution->description = $request->description;
+        $contribution->date = $request->date;
+        $contribution->starttime = $request->starttime;
+        $contribution->endtime = $request->endtime;
+        $contribution->skillsoffered = $request->skillsoffered;
+        $contribution->location = $request->location;
+        $contribution->numberofpersonsoffered = $request->numberofpersonsoffered;
+        $contribution->creator_id = Auth::user()->id;
+
+        $contribution->save();
+
+        //flash message
+
+        return redirect()->route('contributions.show', ['id'=>$contribution->id]);
+    
     }
 
     /**
@@ -116,6 +166,13 @@ class ContributionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contribution = Contribution::find($id);
+
+        $contribution->cancelled = 1;
+
+        $contribution->save();
+
+        return redirect()->route('contributions.index');
+
     }
 }
