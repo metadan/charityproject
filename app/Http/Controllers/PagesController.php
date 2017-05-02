@@ -14,10 +14,12 @@ class PagesController extends Controller
 		#compile data or process data from the model if needed
 		#pass that data to correct view
 
-		$contributions = Contribution::where('cancelled', 0)
+		$contributions = Contribution::with('skill', 'location')
+						->where('cancelled', 0)
                         ->get();
 
-        $inquiries = Inquiry::where('cancelled', 0)
+        $inquiries = Inquiry::with('skill', 'location')
+        			->where('cancelled', 0)
         			->get();
 
 		return view('pages.welcome')->with('contributions', $contributions)->with('inquiries', $inquiries);

@@ -21,20 +21,23 @@
 
 				{{ Form::label('endtime', 'End time:') }}
 				{{ Form::time('endtime', null, ["class" => 'form-control']) }}
+				<hr>
 
 				{{Form::label(null, 'Skills offered: ') }}</br>
 				@foreach($skillsavailable as $skill)
 				{{ Form::label('skillsoffered', $skill->skill) }}
-				{{ Form::radio('skilloffered', $skill->id, ["class" => 'form-control']) }}
+				{{ Form::radio('skillsoffered', $skill->id, ["class" => 'form-control']) }}
 				@endforeach
 				</br>
+				<hr>
 
 				{{Form::label(null, 'Location: ') }}</br>
 				@foreach($locationsavailable as $location)
-				{{ Form::label('location', $location->location) }}
-				{{ Form::radio('location', $location->id, ["class" => 'form-control']) }}
+				{{ Form::label('location_id', $location->location) }}
+				{{ Form::radio('location_id', $location->id, ["class" => 'form-control']) }}
 				@endforeach
 				</br>
+				<hr>
 
 				{{ Form::label('numberofpersonsoffered', 'Number of persons needed:') }}
 				{{ Form::selectRange('numberofpersonsoffered', 1, 15, $contribution->numberofpersonsneeded, ["class" => 'form-control'])}}
@@ -55,7 +58,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-sm-6 edit-button">
-						{!! Html::linkRoute('contributions.show', 'Cancel', array($contribution->id), array('class'=>'btn btn-warning btn-block')) !!}
+						{!! Html::linkRoute('contributions.show', 'Cancel Changes', array($contribution->id), array('class'=>'btn btn-warning btn-block')) !!}
 					</div>
 					<div class="col-sm-6 edit-button">
 						{{ Form::submit('Save Changes', ['class' => 'btn btn-success btn-block']) }}

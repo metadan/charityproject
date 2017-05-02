@@ -32,9 +32,12 @@
           <div class="col-md-3 user-since">
             <p>User since:</p>
             <p>{{ date('M j, Y H:i', strtotime(Auth::user()->created_at)) }}</p>
+            @can('create', App\Profile::class)
+            <a id="createprofile-button" type="button" class="btn btn-success btn-lg" href="{{ url('myprofile') }}">See my Profile</a>
+            @else
             <a id="createprofile-button" type="button" class="btn btn-success btn-lg" href="{{ route('profile.create') }}">Create my Profile</a>
+            @endcan
           </div>
-
         </div><!--end of row-->
       </div>
   </div> <!--end of container-->

@@ -21,7 +21,6 @@
                         <li><a href="{{ url('myprofile') }}">Profile</a></li>
                         <li><a href="{{ url('home/contributions') }}">My Contributions</a></li>
                         <li><a href="{{ url('home/inquiries') }}">My Inquiries</a></li>
-                        <li><a href="{{ url('home/settings') }}">Settings</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{ route('logout') }}"
         					onclick="event.preventDefault();

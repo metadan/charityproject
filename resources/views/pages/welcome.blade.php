@@ -6,8 +6,8 @@
 @include('partials/_topsection')
 
 <div class="active-contributions-inquiries">
-        <a id="active-contributions" href="{{url('/contributions')}}" type="button" class="btn btn-primary btn-lg" role="button">See All Contributions</a>
-        <a id="active-inquiries" href="{{url('/inquiries')}}" type="button" class="btn btn-primary btn-lg" role="button">See All Inquiries</a>
+        <a id="active-contributions" href="{{url('/contributions')}}" type="button" class="btn btn-primary btn-lg" role="button">All Contributions</a>
+        <a id="active-inquiries" href="{{url('/inquiries')}}" type="button" class="btn btn-primary btn-lg" role="button">All Inquiries</a>
 </div>
 <div class="welcome-board">
     <div class="row">
@@ -25,10 +25,10 @@
                     @foreach ($contributions as $contribution)
                     <tr>
                         <th class="col-xs-1">{{ $contribution->id }}</th>
-                        <td class="col-xs-3">{{ $contribution->title }}</td>
-                        <td class="col-xs-2">{{ date('m j, Y') }}</td>
-                        <td class="col-xs-3">{{ $contribution->skillsoffered }}</td>
-                        <td class="col-xs-2">{{ $contribution->location_id }}</td>
+                        <td class="col-xs-2">{{ $contribution->title }}</td>
+                        <td class="col-xs-2">{{ date('j M, y') }}</td>
+                        <td class="col-xs-2">{{ $contribution->skill->skill }}</td>
+                        <td class="col-xs-2">{{ $contribution->location->location }}</td>
                         <td class="col-xs-1">{{ $contribution->numberofpersonsoffered }}</td>
                         <td><a href="{{ route('contributions.show', $contribution->id) }}">View</a></td>
                     </tr>
@@ -49,11 +49,11 @@
                     <tbody>
                     @foreach ($inquiries as $inquiry)
                     <tr>
-                        <td class="col-xs-1">{{ $inquiry->id }}</td>
-                        <td class="col-xs-3">{{ $inquiry->title }}</td>
-                        <td class="col-xs-2">{{ date('m j, Y') }}</td>
-                        <td class="col-xs-3">{{ $inquiry->skillsneeded }}</td>
-                        <td class="col-xs-2">{{ $inquiry->location_id }}</td>
+                        <th class="col-xs-1">{{ $inquiry->id }}</th>
+                        <td class="col-xs-2">{{ $inquiry->title }}</td>
+                        <td class="col-xs-2">{{ date('j M, y') }}</td>
+                        <td class="col-xs-2">{{ $inquiry->skill->skill }}</td>
+                        <td class="col-xs-2">{{ $inquiry->location->location }}</td>
                         <td class="col-xs-1">{{ $inquiry->numberofpersonsneeded }}</td>
                         <td><a href="{{ route('inquiries.show', $inquiry->id) }}">View</a></td>
                     </tr>

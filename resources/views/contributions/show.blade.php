@@ -18,9 +18,18 @@
 				<p>Date: {{ $contribution->date}}</p>
 				<p>Start time: {{ $contribution->starttime }} </p>
 				<p>End time: {{ $contribution->endtime }} </p>
-				<p>Location: {{ $contribution->location_id }}</p>
-				<p>Skills offered: {{ $contribution->skillsoffered }}</p>
+				<p>Location: {{ $contribution->location->location}}</p>
+				<p>Skills offered: {{ $contribution->skill->skill}}</p>
 				<p>Number of persons offered: {{ $contribution->numberofpersonsoffered }} </p>
+				<div class="acceptedpersons">
+					<p>Who has accepted this contribution: 
+						<ul>
+							@foreach ($acceptedusers as $profile)
+	    						<li><a href="/profile/{{$profile->id}}">{{ $profile->username }}</a></li>
+							@endforeach
+						</ul>
+					</p>
+				</div>
 			</div>
 			<div class="col-md-4 col-md-offset-1">
 				<div class="well edit-info">

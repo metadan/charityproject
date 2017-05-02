@@ -1,8 +1,8 @@
 <div class="create-inquiry">
-  <a href="{{ url('/inquiries/create') }}"><img src="/images/create1.png" alt="Create icon">Create an inquiry</a>
+  <a href="{{ url('/contributions/create') }}"><img src="/images/create1.png" alt="Create icon">Create a contribution</a>
 </div>
 <div class="create-contribution">
-  <a href="{{ url('/contributions/create') }}"><img src="/images/create1.png" alt="Create icon">Create a contribution</a>
+  <a href="{{ url('/inquiries/create') }}"><img src="/images/create1.png" alt="Create icon">Create an inquiry</a>
 </div> 
   <div class="container">
     <div class="search">

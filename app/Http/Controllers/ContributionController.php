@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contribution;
+use App\AcceptContribution;
 use Illuminate\Support\Facades\Auth;
 use App\Skill;
 use App\Location;
 use Session;
 use Illuminate\Support\Facades\Log;
+use App\Profile;
 
 class ContributionController extends Controller
 {
@@ -19,15 +21,12 @@ class ContributionController extends Controller
      */
     public function index()
     {
+        //eloquent relationship between contributions and skills, locations tables in database - eager loading
         //create a variable and store all the contributions in it from the database
         $contributions = Contribution::with('skill', 'location')
                         ->where('cancelled', 0)
                         ->get();
 
-        // foreach ($contributions as $contribution) {
-        //     $contribution->location_included = $contribution->location;
-        //     unset($contribution->location);
-        // }
 
         Log::info('Result from contributions: '.$contributions);
 
@@ -107,7 +106,22 @@ class ContributionController extends Controller
         }
         
         $contribution = Contribution::find($id);
-        return view('contributions.show')->with('contribution', $contribution);
+
+        //acceptance of this contribution
+
+        $acceptedcontributions = AcceptContribution::where('contribution_id', $id)
+                                ->get();
+
+        $accepteduserids = [];
+
+        foreach ($acceptedcontributions as $acceptedcontribution) {
+                array_push($accepteduserids, $acceptedcontribution->user_id);
+        }
+
+        $acceptedusers = Profile::findMany($accepteduserids);
+
+
+        return view('contributions.show')->with('contribution', $contribution)->with('acceptedusers', $acceptedusers);
     }
 
     /**
@@ -138,6 +152,7 @@ class ContributionController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request, array(
                 'title' => 'required|max:150',
                 'description' => 'required|max:255',
@@ -145,7 +160,7 @@ class ContributionController extends Controller
                 'starttime' => 'required',
                 'endtime' => 'required',
                 'skillsoffered' => 'required',
-                'location' =>'required',
+                'location_id' =>'required',
                 'numberofpersonsoffered' => 'required'
                 ));
 
@@ -157,7 +172,7 @@ class ContributionController extends Controller
         $contribution->starttime = $request->starttime;
         $contribution->endtime = $request->endtime;
         $contribution->skillsoffered = $request->skillsoffered;
-        $contribution->location_id = $request->location;
+        $contribution->location_id = $request->location_id;
         $contribution->numberofpersonsoffered = $request->numberofpersonsoffered;
         $contribution->creator_id = Auth::user()->id;
 

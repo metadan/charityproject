@@ -302,7 +302,7 @@ SECTION
 }
 
 #reset-single-box{
-	height: 200px;
+	height: 250px;
 }
 
 #alreadyamember,
@@ -421,7 +421,7 @@ SECTION
 
 .edit {
 	width: 70%;
-	height: 850px;
+	height: 1150px;
 	background-color: #E7E7E7;
 	padding:20px;
 	padding-top:10px;
@@ -446,7 +446,7 @@ SECTION
 
 .show {
 	width: 100%;
-	height:450px;
+	min-height:450px !important;
 	background-color: #E7E7E7;
 	padding:20px;
 	padding-top:10px;
@@ -471,6 +471,10 @@ SECTION
 	padding-right: 10px;
 }
 
+.acceptedpersons {
+	padding-top: 20px;
+}
+
 
 /*----home----*/
 
@@ -493,7 +497,7 @@ SECTION
 	padding-bottom:0px;
 
 	font-family: 'Bree Serif', serif;
-	font-size: 1em;
+	font-size: 1.2em;
 	font-style: bold;
 	border: 1px solid #E9B81D;
 }
@@ -588,8 +592,9 @@ SECTION
 	border: solid 2px #FF5733;
 	border-radius: 5px;
 	margin-right:17px;
-	margin-top:65px;
+	margin-top:40px;
 	padding: 10px 56px 10px 10px;
+	width: 80%;
 
 	font-family: 'Bree Serif', serif;
 	font-style: bold;
@@ -708,4 +713,8 @@ tables
 
 .welcometable tbody{
 	height: 200px;
+}
+
+.numbercolumn{
+	width: 20px;
 }

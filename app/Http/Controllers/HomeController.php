@@ -33,10 +33,6 @@ class HomeController extends Controller
         $createdinquiries = Inquiry::where('creator_id', Auth::user()->id)
                           ->count();
 
-        //$profile = Profile::find($id);
-        //$userid = $profile->user_id;
-        //$createdinquiries = Inquiry::where('creator_id', $userid)->count();
-
         $acceptedinquiries = AcceptInquiry::where('user_id', Auth::user()->id)
                             ->count();
 
@@ -52,7 +48,8 @@ class HomeController extends Controller
     public function getInquiries(){
 
         //create a variable and store all inquiries that are not cancelled made by a user
-        $inquiries = Inquiry::where('creator_id', Auth::user()->id)
+        $inquiries = Inquiry::with('skill', 'location')
+                    ->where('creator_id', Auth::user()->id)
                     ->where('cancelled', 0)
                     ->get();
 
@@ -82,7 +79,8 @@ class HomeController extends Controller
     public function getContributions(){
 
         //create a variable and store all the contributions that are not cancelled made by a user
-        $contributions = Contribution::where('creator_id', Auth::user()->id)
+        $contributions = Contribution::with('skill', 'location')
+                        ->where('creator_id', Auth::user()->id)
                         ->where('cancelled', 0)
                         ->get();
 

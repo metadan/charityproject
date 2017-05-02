@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inquiry;
+use App\AcceptInquiry;
 use Illuminate\Support\Facades\Auth;
 use App\Skill;
 use App\Location;
 use Session;
 use Illuminate\Support\Facades\Log;
+use App\Profile;
 
 class InquiryController extends Controller
 {
@@ -19,6 +21,7 @@ class InquiryController extends Controller
      */
     public function index()
     {
+        //eloquent relationship between inquiries and skill, location tables in database - eager loading
         //create a variable and store all inquiries in the database that are not cancelled
         $inquiries = Inquiry::with('skill','location') 
                     ->where('cancelled', 0)
@@ -103,7 +106,28 @@ class InquiryController extends Controller
         }
         
         $inquiry = Inquiry::find($id);
-        return view('inquiries.show')->with('inquiry', $inquiry);
+
+         Log::info('Result from inquiry: '.$inquiry);
+
+        //acceptance of this inquiry
+        $acceptedinquiries = AcceptInquiry::where('inquiry_id', $id)
+                            ->get();
+
+        //Log::info('Result from acceptedinquiries: '.$acceptedinquiries);
+
+        $accepteduserids = [];
+
+        foreach ($acceptedinquiries as $acceptedinquiry) {
+            array_push($accepteduserids, $acceptedinquiry->user_id);
+        }
+
+        $acceptedusers = Profile::whereIn('user_id', $accepteduserids)
+                                  ->get();
+
+        Log::info('Result from acceptedusers: '.$acceptedusers);
+
+
+        return view('inquiries.show')->with('inquiry', $inquiry)->with('acceptedusers', $acceptedusers);
     }
 
     /**
@@ -121,6 +145,8 @@ class InquiryController extends Controller
         $inquiry = Inquiry::find($id);
         $skillsavailable = Skill::all();
         $locationsavailable = Location::all();
+
+        Log::info('Result from locationsavailable: '.$locationsavailable);
 
         return view('inquiries.edit')->with('inquiry', $inquiry)->with('skillsavailable', $skillsavailable)->with('locationsavailable', $locationsavailable);
     }
@@ -142,7 +168,7 @@ class InquiryController extends Controller
                     'starttime' => 'required',
                     'endtime' => 'required',
                     'skillsneeded' => 'required',
-                    'location' => 'required',
+                    'location_id' => 'required',
                     'numberofpersonsneeded' => 'required'
                     ));
 
@@ -153,7 +179,7 @@ class InquiryController extends Controller
         $inquiry->date = $request->date;
         $inquiry->starttime = $request->starttime;
         $inquiry->endtime = $request->endtime;
-        $inquiry->location_id = $request->location;
+        $inquiry->location_id = $request->location_id;
         $inquiry->skillsneeded = $request ->skillsneeded;
         $inquiry->numberofpersonsneeded = $request->numberofpersonsneeded;
         $inquiry->creator_id = Auth::user()->id;

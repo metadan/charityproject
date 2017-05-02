@@ -27,9 +27,9 @@
 				<tr>
 					<td class="col-xs-1">{{ $inquiry->id }}</td>
 					<td class="col-xs-1">{{ $inquiry->title }}</td>
-					<td class="col-xs-1">{{ date('m j, Y') }}</td>
-					<td class="col-xs-1">{{ strtotime($inquiry->starttime) }}</td>
-					<td class="col-xs-1">{{ strtotime($inquiry->endtime) }}</td>
+					<td class="col-xs-1">{{ date('j M, y') }}</td>
+					<td class="col-xs-1">{{ $inquiry->starttime }}</td>
+					<td class="col-xs-1">{{ $inquiry->endtime }}</td>
 					<td class="col-xs-2">{{ $inquiry->skill->skill }}</td>
 					<td class="col-xs-2">{{ $inquiry->location->location }}</td>
 					<td class="col-xs-1">{{ $inquiry->numberofpersonsneeded }}</td>

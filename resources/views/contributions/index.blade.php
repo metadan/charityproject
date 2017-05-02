@@ -20,18 +20,18 @@
 				<th class="col-xs-1">End time</th>
 				<th class="col-xs-2">Skills offered</th>
 				<th class="col-xs-2">Location</th>
-				<th class="col-xs-3">No. persons offered</th>
+				<th class="col-xs-2">No. persons offered</th>
 			</thead>
 			<tbody>
 				@foreach ($contributions as $contribution)
 				<tr>
 					<th class="col-xs-1">{{ $contribution->id }}</th>
 					<td class="col-xs-1">{{ $contribution->title }}</td>
-					<td class="col-xs-1">{{ date('m j, Y') }}</td>
-					<td class="col-xs-1">{{ strtotime($contribution->starttime) }}</td>
-					<td class="col-xs-1">{{ strtotime($contribution->endtime) }}</td>
-					<td class="col-xs-3">{{ $contribution->skill->skill }}</td>
-					<td class="col-xs-3">{{ $contribution->location->location }}</td>
+					<td class="col-xs-1">{{ date('j M, y') }}</td>
+					<td class="col-xs-1">{{ $contribution->starttime }}</td>
+					<td class="col-xs-1">{{ $contribution->endtime }}</td>
+					<td class="col-xs-2">{{ $contribution->skill->skill }}</td>
+					<td class="col-xs-2">{{ $contribution->location->location }}</td>
 					<td class="col-xs-1">{{ $contribution->numberofpersonsoffered }}</td>
 					<td><a href="{{ route('contributions.show', $contribution->id) }}">View</a></td>
 					@can('update', $contribution)

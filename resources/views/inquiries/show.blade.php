@@ -18,9 +18,18 @@
 				<p>Date: {{ $inquiry->date}}</p>
 				<p>Start time: {{ $inquiry->starttime }} </p>
 				<p>End time: {{ $inquiry->endtime }} </p>
-				<p>Location: {{ $inquiry->location_id }}</p>
-				<p>Skills needed: {{ $inquiry->skillsneeded }}</p>
+				<p>Location: {{ $inquiry->location->location }}</p>
+				<p>Skills needed: {{ $inquiry->skill->skill}}</p>
 				<p>Number of persons needed: {{ $inquiry->numberofpersonsneeded }} </p>
+				<div class="acceptedpersons">
+					<p>Who has accepted this inquiry:
+						<ul>
+							@foreach ($acceptedusers as $profile)
+	    						<li><a href="/profile/{{$profile->id}}">{{ $profile->username }}</a></li>
+							@endforeach
+						</ul>
+					</p>
+				</div>
 			</div>
 			<div class="col-md-4 col-md-offset-1">
 				<div class="well edit-info">

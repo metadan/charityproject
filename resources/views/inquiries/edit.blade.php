@@ -21,6 +21,7 @@
 
 				{{ Form::label('endtime', 'End time:') }}
 				{{ Form::time('endtime', null, ["class" => 'form-control']) }}
+				<hr>
 
 				{{Form::label(null, 'Skills needed: ') }}</br>
 				@foreach($skillsavailable as $skill)
@@ -28,13 +29,15 @@
 				{{ Form::radio('skillsneeded', $skill->id, ["class" => 'form-control']) }}
 				@endforeach
 				</br>
+				<hr>
 
 				{{Form::label(null, 'Location: ') }}</br>
 				@foreach($locationsavailable as $location)
-				{{ Form::label('location', $location->location) }}
-				{{ Form::radio('location', $location->id, ["class" => 'form-control']) }}
+				{{ Form::label('location_id', $location->location) }}
+				{{ Form::radio('location_id', $location->id, ["class" => 'form-control']) }}
 				@endforeach
 				</br>
+				<hr>
 
 				{{ Form::label('numberofpersonsneeded', 'Number of persons needed:') }}
 				{{ Form::selectRange('numberofpersonsneeded', 1, 15, $inquiry -> numberofpersonsneeded, ["class" => 'form-control'])}}

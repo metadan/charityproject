@@ -6,6 +6,8 @@ use App\Inquiry;
 use App\Policies\InquiryPolicy;
 use App\Contribution;
 use App\Policies\ContributionPolicy;
+use App\Profile;
+use App\Policies\ProfilePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -20,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
          Inquiry::class => InquiryPolicy::class,
          Contribution::class => ContributionPolicy::class,
-
+         Profile::class => ProfilePolicy::class,
     ];
 
     /**

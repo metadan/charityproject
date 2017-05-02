@@ -9,6 +9,11 @@ use App\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Session;
+use App\Inquiry;
+use App\AcceptInquiry;
+use App\Contribution;
+use App\AcceptContribution;
+use App\User;
 
 class ProfileController extends Controller
 {
@@ -19,9 +24,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $profileId = Profile::all();
+        //$profileId = Profile::all();
 
-        return view('profile.index')->with('profileid', $profileId->id);
+        //return view('profile.index')->with('profileid', $profileId->id);
     }
 
     /**
@@ -80,9 +85,23 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        $profile = Profile::find($id);
+        $profile = Profile::with('skill')->find($id);
 
-        return view('profile.show')->with('profile', $profile);
+        $createdinquiries = Inquiry::where('creator_id', $profile->user_id)
+                            ->count();
+
+        $acceptedinquiries = AcceptInquiry::where('user_id', $profile->user_id)
+                            ->count();
+
+        $createdcontributions = Contribution::where('creator_id', $profile->user_id)
+                                ->count();
+        $acceptedcontributions = AcceptContribution::where('user_id', $profile->user_id)
+                                ->count();
+
+        $user = User::find($profile->user_id);
+
+
+        return view('profile.show')->with('profile', $profile)->with('createdinquiries', $createdinquiries)->with('acceptedinquiries', $acceptedinquiries)->with('createdcontributions', $createdcontributions)->with('acceptedcontributions', $acceptedcontributions)->with('user', $user);
     }
 
     /**

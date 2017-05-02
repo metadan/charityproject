@@ -17,23 +17,23 @@
 	        	<thead>
 				<th class="col-xs-1">#</th>
 				<th class="col-xs-1">Title</th>
-				<th class="col-xs-3">Description</th>
 				<th class="col-xs-1">Date</th>
 				<th class="col-xs-1">Start time</th>
 				<th class="col-xs-1">End time</th>
 				<th class="col-xs-2">Skills offered</th>
-				<th class="col-xs-3">No. of persons offered</th>
+				<th class="col-xs-2">Location</th>
+				<th class="col-xs-2">No. of persons offered</th>
 				</thead>
 				<tbody>
 					@foreach ($data as $inquiry)
 							<tr>
 								<td class="col-xs-1">{{ $inquiry->id }}</td>
 								<td class="col-xs-1">{{ $inquiry->title }}</td>
-								<td class="col-xs-2">{{ $inquiry->description }}</td>
-								<td class="col-xs-1">{{ date('m j, Y') }}</td>
-								<td class="col-xs-1">{{ strtotime($inquiry->starttime) }}</td>
-								<td class="col-xs-1">{{ strtotime($inquiry->endtime) }}</td>
-								<td class="col-xs-2">{{ $inquiry->skillsneeded }}</td>
+								<td class="col-xs-1">{{ date('j M, y') }}</td>
+								<td class="col-xs-1">{{ $inquiry->starttime }}</td>
+								<td class="col-xs-1">{{ $inquiry->endtime }}</td>
+								<td class="col-xs-2">{{ $inquiry->skill->skill }}</td>
+								<td class="col-xs-2">{{ $inquiry->location->location }}</td>
 								<td class="col-xs-1">{{ $inquiry->numberofpersonsneeded }}</td>
 									<td><a href="{{ route('inquiries.show', $inquiry->id) }}">View</a></td>
 								@can('update', $inquiry)
@@ -49,23 +49,23 @@
 	        	<thead>
 				<th class="col-xs-1">#</th>
 				<th class="col-xs-1">Title</th>
-				<th class="col-xs-3">Description</th>
 				<th class="col-xs-1">Date</th>
 				<th class="col-xs-1">Start time</th>
 				<th class="col-xs-1">End time</th>
 				<th class="col-xs-2">Skills offered</th>
-				<th class="col-xs-3">No. of persons offered</th>
+				<th class="col-xs-2">Location</th>
+				<th class="col-xs-2">No. of persons offered</th>
 				</thead>
 				<tbody>
 					@foreach ($data as $contribution)
 								<tr>
 									<td class="col-xs-1">{{ $contribution->id }}</td>
 									<td class="col-xs-1">{{ $contribution->title }}</td>
-									<td class="col-xs-2">{{ $contribution->description }}</td>
-									<td class="col-xs-1">{{ date('m j, Y') }}</td>
-									<td class="col-xs-1">{{ strtotime($contribution->starttime) }}</td>
-									<td class="col-xs-1">{{ strtotime($contribution->endtime) }}</td>
-									<td class="col-xs-2">{{ $contribution->skillsoffered }}</td>
+									<td class="col-xs-1">{{ date('j M, y') }}</td>
+									<td class="col-xs-1">{{ $contribution->starttime }}</td>
+									<td class="col-xs-1">{{ $contribution->endtime }}</td>
+									<td class="col-xs-2">{{ $contribution->skill->skill }}</td>
+									<td class="col-xs-2">{{ $contribution->location->location }}</td>
 									<td class="col-xs-1">{{ $contribution->numberofpersonsoffered }}</td>
 										<td><a href="{{ route('contributions.show', $contribution->id) }}">View</a></td>
 									@can('update', $contribution)

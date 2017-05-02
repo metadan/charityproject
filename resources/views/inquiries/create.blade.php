@@ -15,7 +15,7 @@
 		        </div>
 		        <div class="form-group">
 		        	<p>Short description of your inquiry:</p>
-		        		<input id="description-needed" type="textarea" name="description" placeholder="Description" required>
+		        		<input id="description-needed" class="maxlength: 20" type="textarea" name="description" placeholder="Description" required>
 		        </div>
 		       	<div class="form-group">
 					<p>Location of your inquiry:</p>

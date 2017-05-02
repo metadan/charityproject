@@ -35,7 +35,7 @@ class ContributionPolicy
         //
     }
 
-    public function hasAccepted(User $user, Contribution $contribution)
+    public function hasAcceptedContribution(User $user, Contribution $contribution)
     {
         $hasAcceptedContribution = AcceptContribution::where('user_id', $user -> id)
                           ->where('contribution_id', $contribution -> id)

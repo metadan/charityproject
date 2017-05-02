@@ -57,7 +57,6 @@ class InquiryPolicy
      */
     public function update(User $user, Inquiry $inquiry)
     {
-        //
         return $user->id == $inquiry->creator_id;
     }
 
