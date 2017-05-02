@@ -42,8 +42,7 @@ class SkillsTableSeeder extends Seeder
                         'Sewing',
                         'Software Development',
                         'Tailoring',
-                        'Travel Planning',
-                        );
+                        'Travel Planning');
 
     	foreach($skills as $skill){
             DB::table('skills')->insert([

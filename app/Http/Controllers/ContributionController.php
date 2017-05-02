@@ -118,7 +118,8 @@ class ContributionController extends Controller
                 array_push($accepteduserids, $acceptedcontribution->user_id);
         }
 
-        $acceptedusers = Profile::findMany($accepteduserids);
+        $acceptedusers = Profile::whereIn('user_id', $accepteduserids)
+                                ->get();
 
 
         return view('contributions.show')->with('contribution', $contribution)->with('acceptedusers', $acceptedusers);
