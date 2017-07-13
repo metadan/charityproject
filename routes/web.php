@@ -20,14 +20,26 @@ Route::get('privacy', 'PagesController@getPrivacy');
 //Resource Routes
 Route::resource('inquiries', 'InquiryController');
 Route::resource('contributions', 'ContributionController');
+Route::resource('acceptinquiries', 'AcceptInquiryController');
+Route::resource('acceptcontributions', 'AcceptContributionController');
+Route::resource('profile', 'ProfileController');
+
 
 //Authentication Routes
-//Route::get('auth/login', 'Auth\LoginController@getLogin');
-//Route::post('auth/login', 'Auth\LoginController@postLogin');
-//Route::get('auth/logout', 'Auth\LoginController@getLogout');
+Auth::routes();
 
-//Registration Routes
-//Route::get('auth/signup', 'Auth\RegisterController@getSignup');
-//Route::post('auth/signup', 'Auth\RegisterController@postSignup')
+//User Home routes
+
+Route::get('home', 'HomeController@getIndex')->name('home');
+Route::get('home/inquiries', 'HomeController@getInquiries')->name('home.inquiries');
+Route::get('home/contributions', 'HomeController@getContributions')->name('home.contributions');
+Route::get('home/account', 'HomeController@getAccount');
+Route::get('home/settings', 'HomeController@getSettings');
+Route::get('myprofile', 'HomeController@getProfile')->name('myprofile');
+
+//Search Routes
+
+Route::get('search', 'SearchController@search')->name('search');
+Route::post('search', 'SearchController@search')->name('search');
 
 

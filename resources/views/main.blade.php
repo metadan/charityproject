@@ -7,7 +7,9 @@
   </head>
   <body>
 
-    @include('partials/_welcomeheader')
+    @include('partials/_header')
+
+    @include('partials._messages')
   
     @yield('content')
 

@@ -3,7 +3,7 @@
 @section('content')
 
 <section id="top-border">
-	<div class="wrapper">
+	<div class="container">
 	  <div class="privacy">
 	  <h3>The As and When Privacy Policy Statement</h3>
 	    <p>Revision date: 21 February 2017</p>

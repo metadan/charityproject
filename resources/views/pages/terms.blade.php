@@ -3,7 +3,7 @@
 @section('content')
 
 <section id="top-border">
-	<div class="wrapper">
+	<div class="container">
 	  <div class="terms">
 	  <h3>The As and When Terms of Service Agreement</h3>
 

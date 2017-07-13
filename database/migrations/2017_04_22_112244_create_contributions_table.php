@@ -13,16 +13,26 @@ class CreateContributionsTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints();
         Schema::create('contributions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('creator_id')->unsigned();
             $table->string('title');
             $table->string('description');
             $table->date('date');
             $table->time('starttime');
             $table->time('endtime');
-            $table->string('skillsoffered');
+            $table->integer('location_id')->unsigned();
+            $table->integer('skillsoffered')->unsigned();
             $table->integer('numberofpersonsoffered');
+            $table->boolean('cancelled')->default(0);
             $table->timestamps();
+        });
+
+        Schema::table('contributions', function($table){
+            $table->foreign('creator_id')->references('id')->on('users');
+            $table->foreign('skillsoffered')->references('id')->on('skills');
+            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 
