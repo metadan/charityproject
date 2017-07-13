@@ -99,7 +99,6 @@ class AcceptContributionController extends Controller
                        ->where('inquiry_id', $id)
                        ->get();
 
-        Log::info('Result from acceptContribution: '.$acceptContribution);
 
         $acceptContribution[0]->delete();
 

@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Skill;
 use App\Location;
 use Session;
-use Illuminate\Support\Facades\Log;
 use App\Profile;
+
 
 class ContributionController extends Controller
 {
@@ -27,8 +27,6 @@ class ContributionController extends Controller
                         ->where('cancelled', 0)
                         ->get();
 
-
-        Log::info('Result from contributions: '.$contributions);
 
         //return a view and pass in the above variable
         return view('contributions.index')->with('contributions', $contributions);
@@ -59,6 +57,7 @@ class ContributionController extends Controller
      */
     public function store(Request $request)
     {
+
         //validate the data
         $this->validate($request, array(
                 'title' => 'required|max:150',

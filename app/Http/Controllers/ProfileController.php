@@ -7,7 +7,6 @@ use App\Profile;
 use App\Skill;
 use App\Location;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Session;
 use App\Inquiry;
 use App\AcceptInquiry;
@@ -68,7 +67,6 @@ class ProfileController extends Controller
 
             $profile->save();
 
-            Log::info('Result from profile: '.$profile);
 
         //flash message
         Session::flash('success', 'Profile was successfully saved!');

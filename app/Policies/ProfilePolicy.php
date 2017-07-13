@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\User;
 use App\Profile;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 class ProfilePolicy
 {
@@ -31,11 +30,8 @@ class ProfilePolicy
      */
     public function create(User $user)
     {
-        Log::info('entered');
         $hasCreatedProfile = Profile::where('user_id', $user->id)
                             ->get();
-
-        Log::info('Result from hasCreatedProfile: '.$hasCreatedProfile);
 
         if(count($hasCreatedProfile) > 0){
             return True;

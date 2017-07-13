@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Inquiry;
 use App\AcceptInquiry;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class AcceptInquiryController extends Controller
 {
@@ -99,8 +98,6 @@ class AcceptInquiryController extends Controller
         $acceptInquiry = AcceptInquiry::where('user_id', Auth::user()->id)
                        ->where('inquiry_id', $id)
                        ->get();
-
-        Log::info('Result from acceptInquiry: '.$acceptInquiry);
 
         $acceptInquiry[0]->delete();
 

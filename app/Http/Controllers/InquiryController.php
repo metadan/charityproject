@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Skill;
 use App\Location;
 use Session;
-use Illuminate\Support\Facades\Log;
 use App\Profile;
 
 class InquiryController extends Controller
@@ -26,8 +25,6 @@ class InquiryController extends Controller
         $inquiries = Inquiry::with('skill','location') 
                     ->where('cancelled', 0)
                     ->get();
-
-        Log::info('Result from inquiries: '.$inquiries);
 
 
         //return a view and pass in the above variable
@@ -107,7 +104,6 @@ class InquiryController extends Controller
         
         $inquiry = Inquiry::find($id);
 
-         Log::info('Result from inquiry: '.$inquiry);
 
         //acceptance of this inquiry
         $acceptedinquiries = AcceptInquiry::where('inquiry_id', $id)
@@ -124,7 +120,6 @@ class InquiryController extends Controller
         $acceptedusers = Profile::whereIn('user_id', $accepteduserids)
                                   ->get();
 
-        Log::info('Result from acceptedusers: '.$acceptedusers);
 
 
         return view('inquiries.show')->with('inquiry', $inquiry)->with('acceptedusers', $acceptedusers);
@@ -145,8 +140,6 @@ class InquiryController extends Controller
         $inquiry = Inquiry::find($id);
         $skillsavailable = Skill::all();
         $locationsavailable = Location::all();
-
-        Log::info('Result from locationsavailable: '.$locationsavailable);
 
         return view('inquiries.edit')->with('inquiry', $inquiry)->with('skillsavailable', $skillsavailable)->with('locationsavailable', $locationsavailable);
     }

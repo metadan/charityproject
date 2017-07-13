@@ -18,8 +18,6 @@ class SearchController extends Controller
 
     		//search inquiries
     		$searchinquiries = Inquiry::search($req->search)->get();
-            
-    		Log::info('Result from searchinquiries: '.$searchinquiries);
 
     		//return view with data
 
@@ -29,11 +27,10 @@ class SearchController extends Controller
 
     		//search contributions
     		$searchcontributions = Contribution::search($req->search)->get();
-            
-    		Log::info('Result from searchcontributions: '.$searchcontributions);
 
     		//return view with data
     		return view('search')->with('data', $searchcontributions)->with('type', $type);
     	}
     }
 }
+

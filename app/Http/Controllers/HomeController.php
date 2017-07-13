@@ -9,7 +9,6 @@ use App\Contribution;
 use App\AcceptContribution;
 use App\Profile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -64,13 +63,11 @@ class HomeController extends Controller
             array_push($inquiry_ids_new, $id -> id);
         }
 
-        Log::info('Result from $inquiry_ids_cleaned: '.implode(' ', $inquiry_ids_new));
    
         //store all accepted inquiries for a user
         $acceptedInquiries = Inquiry::findMany($inquiry_ids_new)
                             ->where('cancelled', 0);
 
-        Log::info('Result from acceptedInquiries: '.$acceptedInquiries);
 
         //return a view            
         return view('home.inquiries')->with('inquiries', $inquiries)->with('acceptedInquiries', $acceptedInquiries);
@@ -99,20 +96,8 @@ class HomeController extends Controller
         $acceptedContributions = Contribution::findMany($contribution_ids_new)
                                 ->where('cancelled', 0);
 
-        Log::info('Result from acceptedContributions: '.$acceptedContributions);
-
         //return a view
         return view('home.contributions')->with('contributions', $contributions)->with('acceptedContributions', $acceptedContributions);
-    }
-
-    public function getAccount()
-    {
-        return view('home.account');
-    }
-
-    public function getSettings()
-    {
-        return view('home.settings');
     }
 
     public function getProfile()
@@ -120,7 +105,6 @@ class HomeController extends Controller
         $profile = Profile::where('user_id', Auth::user()->id)
                    ->get();
 
-        Log::info('Result from profile: '.$profile);
         if(count($profile)>0){
             return redirect()->action('ProfileController@show', ['id'=>$profile[0]->id]);
         }else{

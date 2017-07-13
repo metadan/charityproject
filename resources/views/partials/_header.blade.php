@@ -7,7 +7,7 @@
         	  <h2> </a> Contribute to community in your convenient time!</h2>
           </div>
     	   <div class="login-header col-md-3 col-md-offset-3">
-    	   @if (Auth::guest())
+    	   @if (Auth::guest()) <!--http://laravel-recipes.com/recipes/81/determining-if-no-user-is-logged-in-->
        			<a href="{{ url('/login') }}">Login | </a>
                 <a href="{{ url('/register') }}">Sign up</a>
            @else

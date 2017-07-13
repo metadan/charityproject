@@ -8,12 +8,8 @@ class PagesController extends Controller
 {
 
 	public function getIndex(){
-		#process data and params
-		#talk to the model - the model can update the database
-		#receive data back from model
-		#compile data or process data from the model if needed
-		#pass that data to correct view
-
+	
+		//create a variable that collects all active contributions/inquiries
 		$contributions = Contribution::with('skill', 'location')
 						->where('cancelled', 0)
                         ->get();

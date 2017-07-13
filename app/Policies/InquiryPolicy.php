@@ -6,7 +6,6 @@ use App\User;
 use App\Inquiry;
 use App\AcceptInquiry;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 class InquiryPolicy
 {
@@ -41,7 +40,6 @@ class InquiryPolicy
                           ->where('inquiry_id', $inquiry -> id)
                           ->get();
 
-        Log::info('Result from hasAcceptedInquiry: '.$hasAcceptedInquiry);
         
         if(count($hasAcceptedInquiry) > 0){
             return True;

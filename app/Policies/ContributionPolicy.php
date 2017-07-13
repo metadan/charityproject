@@ -40,8 +40,6 @@ class ContributionPolicy
         $hasAcceptedContribution = AcceptContribution::where('user_id', $user -> id)
                           ->where('contribution_id', $contribution -> id)
                           ->get();
-
-        Log::info('Result from hasAcceptedContribution: '.$hasAcceptedContribution);
         
         if(count($hasAcceptedContribution) > 0){
             return True;

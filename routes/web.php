@@ -24,9 +24,11 @@ Route::resource('acceptinquiries', 'AcceptInquiryController');
 Route::resource('acceptcontributions', 'AcceptContributionController');
 Route::resource('profile', 'ProfileController');
 
-//Authentication Routes
 
+//Authentication Routes
 Auth::routes();
+
+//User Home routes
 
 Route::get('home', 'HomeController@getIndex')->name('home');
 Route::get('home/inquiries', 'HomeController@getInquiries')->name('home.inquiries');
