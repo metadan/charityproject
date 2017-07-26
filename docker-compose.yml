@@ -1,0 +1,27 @@
+web:
+    image: hitalos/laravel:latest
+    ports:
+        - 80:80
+        - 8000:8000
+    volumes:
+        - ./:/var/www
+    links:
+        - db
+    environment:
+        DB_HOST: db
+        DB_DATABASE: charityp
+        DB_USERNAME: username
+        DB_PASSWORD: p455w0rd
+        DB_CONNECTION: mysql
+        APP_ENV: local
+        APP_KEY: "base64:g3oi/a4Bkw+m1TiUjgo25H5A0BfXbliEFZUPa/RYauQ="
+        APP_DEBUG: 1
+        APP_LOG_LEVEL: debug
+
+db:
+    image: mysql
+    environment:
+        MYSQL_DATABASE: charityp
+        MYSQL_USER: username
+        MYSQL_PASSWORD: p455w0rd
+        MYSQL_ALLOW_EMPTY_PASSWORD: 1
